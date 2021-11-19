@@ -114,17 +114,30 @@
     + $ git commit -m "Backend"
     + $ git push -u origin main
 
+### Configurando Nodemon
+1. Modificar el archivo **backend\package.json**:
+    ```js
+    ≡
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon src/index.js"
+    },
+    ≡
+    ```
+2. Ejecutar el script **dev** definido en **backend\package.json**:
+    + $ npm run dev
+3. Commit Video 005:
+    + $ git add .
+    + $ git commit -m "Configurando Nodemon"
+    + $ git push -u origin main
+
+
+
 
     ≡
     ```js
     ```
 
-### Configurando Nodemon
-
-1. Commit Video 005:
-    + $ git add .
-    + $ git commit -m "Configurando Nodemon"
-    + $ git push -u origin main
 
 ### Creando la conexión a la base de datos mongodb
 
