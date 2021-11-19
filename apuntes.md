@@ -17,6 +17,7 @@
 ## Sección 1: Introducción
 
 ### Que vamos a desarrollar
++ **Contenido**: Breve introducción sobre el curso.
 1. Commit Video 001:
     + $ git add .
     + $ git commit -m "Que vamos a desarrollar"
