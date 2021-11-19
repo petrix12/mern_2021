@@ -26,7 +26,7 @@
 ## Sección 2: Backend
 
 ### La arquitectura de nuestro Backend
-
++ **Contenido**: Explicación de la arquitectura MVC.
 1. Commit Video 002:
     + $ git add .
     + $ git commit -m "La arquitectura de nuestro Backend"
