@@ -33,8 +33,35 @@
     + $ git push -u origin main
 
 ### Instalar herramientas del curso
-
-1. Commit Video 003:
+1. Programas requeriods:
+    + [MongoDB](https://www.mongodb.com)
+    + [Node.js](https://nodejs.org/en)
+    + [Postman](https://www.postman.com)
+    + [Robo 3T](https://robomongo.org)
+    + [Visual Studio Code](https://code.visualstudio.com)
+2. Crear directorio **C:\data\db**.
+3. En **Windows**, ir a **Propiedades del sistema** y en las pestaña de **Opciones avanzadas** presionar el botón **Variables de entorno...**.
+4. En el grupo de Variables de usuario agregar la ruta **C:\Program Files\MongoDB\Server\5.0\bin** en **Path**.
+5. Para iniciar los servicios de MongoDB, ejecutar en una terminal de Windows:
+    + $ mongod
+    + **Nota**: MongoDB correra en el puerto 27017.
+6. Conexión para administrar **MongoDB** desde **Robo 3T**:
+    + Nombre: localhost
+    + Puerto: 27017
+7. Extensiones recomendadas en **Visual Studio Code**:
+    + ES7 React/Redux/GraphQL/React-Native snippets
+        + dsznajder
+        + Simple extensions for React, Redux and Graphql in JS/TS with ES7 syntax
+    + generate-react-component
+        + joshjg
+        + Generate component structure from easily customizable templates
+    + Reactjs code snippets
+        + charalampos karypidis
+        + Code snippets for Reactjs development in ES6 syntax
+    + Simple React Snippets
+        + Burke Holland
+        + Dead simple React snippets you will actually use
+8. Commit Video 003:
     + $ git add .
     + $ git commit -m "Instalar herramientas del curso"
     + $ git push -u origin main
