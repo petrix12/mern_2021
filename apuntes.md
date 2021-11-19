@@ -67,11 +67,57 @@
     + $ git push -u origin main
 
 ### Backend
+1. Crear carpeta **backend** y ubicarse en ella.
+2. Ejecutar:
+    + $ npm init
+    + **Nota**: para todas las peticiones presionar **ENTER**.
+3. Crear dependencias del proyecto:
+    + $ npm i express nodemon mongoose cors morgan body-parser
+4. Crear la estructura MVC:
+    + Crear carpetas:
+        + backend\src\controllers
+        + backend\src\models
+        + backend\src\routes
+    + Crear archivos:
+        + backend\src\index.js
+        + backend\src\database.js
+5. Configurar servidor en **backend\src\index.js**:
+    ```js
+    const express=require('express')
+    const app=express()
+    const morgan=require('morgan')
+    const cors=require('cors')
+    const bodyparser=require('body-parser')
 
-1. Commit Video 004:
+    app.set('Port', 4000)
+
+    // app.use(morgan('dev'))
+
+    // app.use(bodyparser.urlencoded({extended:true}))
+
+    // app.use(bodyparser.json())
+
+    // start server
+
+    app.listen(app.get('Port'), ()=>{
+        console.log('escuchando por el puerto ', app.get('Port'))
+    })
+    ```
+6. Levantar servidor:
+    + $ node src/index.js
+7. Crear archivo .gitignore: 
+    ```gitignore
+    /backend/node_modules
+    ```
+8. Commit Video 004:
     + $ git add .
     + $ git commit -m "Backend"
     + $ git push -u origin main
+
+
+    ≡
+    ```js
+    ```
 
 ### Configurando Nodemon
 
