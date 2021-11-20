@@ -143,8 +143,8 @@
     mongoose.connect(URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false
+        /* useCreateIndex: true,
+        useFindAndModify: false */
     })
         .then(db => console.log('base de datos conectada'))
         .catch(error => console.log(error))
@@ -166,16 +166,73 @@
     + $ git push -u origin main
 
 ### Creando controladores y rutas
+1. Crear controlador **backend\src\controllers\prueba.controllers.js**:
+    ```js
+    const PruebaCtrl={}
 
-1. Commit Video 007:
+    PruebaCtrl.obtener=(req, res) => {
+        res.send('funcionando desde get')
+    }
+
+    PruebaCtrl.crear=(req, res) => {
+        res.send('funcionando desde post')
+    }
+
+    PruebaCtrl.actualizar=(req, res) => {
+        res.send('funcionando desde put')
+    }
+
+    PruebaCtrl.eliminar=(req, res) => {
+        res.send('funcionando desde delete')
+    }
+
+    module.exports=PruebaCtrl
+    ```
+2. Crear archivo de ruta **backend\src\routes\prueba.route.js**:
+    ```js
+    const {Router} = require('express')
+    const route=Router()
+    const PruebaCtrl=require('../controllers/prueba.controllers')
+
+    route.get('/', PruebaCtrl.obtener)
+    route.post('/', PruebaCtrl.crear)
+    route.put('/', PruebaCtrl.actualizar)
+    route.delete('/', PruebaCtrl.eliminar)
+
+    module.exports=route
+    ```
+3. Indicar rutas en **backend\src\index.js**:
+    ```js
+    const express=require('express')
+    const app=express()
+    const morgan=require('morgan')
+    const cors=require('cors')
+    const bodyparser=require('body-parser')
+
+    require('./database')
+
+    app.set('Port', 4000)
+
+    app.use(morgan('dev'))
+
+    // app.use(bodyparser.urlencoded({extended:true}))
+
+    // app.use(bodyparser.json())
+
+    // Rutas
+    app.use('/api/', require('./routes/prueba.route'))
+
+    // start server
+
+    app.listen(app.get('Port'), ()=>{
+        console.log('escuchando por el puerto ', app.get('Port'))
+    })
+    ```
+4. Probar la aplicación con la url: http://localhost:4000/api
+5. Commit Video 007:
     + $ git add .
     + $ git commit -m "Creando controladores y rutas"
     + $ git push -u origin main
-
-
-    ≡
-    ```js
-    ```
 
 ## Sección 3: Frontend
 
@@ -185,6 +242,11 @@
     + $ git add .
     + $ git commit -m "Frontend con react"
     + $ git push -u origin main
+
+
+    ≡
+    ```js
+    ```
 
 ### Solucionar error al crear el proyecto de react
 
