@@ -387,14 +387,8 @@
     + $ git push -u origin main
 
 ### Solucionar error al crear el proyecto de react
-1. Abri una terminal de Windows y crear un proyecto de React:
-    + $ npx create-react-app frontend
-2. dddd
-3. Commit Video 009:
++ **Contenido**: Breve explicación sobre como solucionar error al crear el proyecto de react.
+1. Commit Video 009:
     + $ git add .
     + $ git commit -m "Solucionar error al crear el proyecto de react"
     + $ git push -u origin main
-
-    ≡
-    ```js
-    ```
