@@ -39,6 +39,7 @@
     + [Postman](https://www.postman.com)
     + [Robo 3T](https://robomongo.org)
     + [Visual Studio Code](https://code.visualstudio.com)
+    + [Google Chrome](https://support.google.com/chrome/answer/95346?hl=es&co=GENIE.Platform%3DDesktop)
 2. Crear directorio **C:\data\db**.
 3. En **Windows**, ir a **Propiedades del sistema** y en las pestaña de **Opciones avanzadas** presionar el botón **Variables de entorno...**.
 4. En el grupo de Variables de usuario agregar la ruta **C:\Program Files\MongoDB\Server\5.0\bin** en **Path**.
@@ -61,7 +62,10 @@
     + Simple React Snippets
         + Burke Holland
         + Dead simple React snippets you will actually use
-8. Commit Video 003:
+8. Extensión recomendanda para instalar en **Google Chrome**:
+    + React Developer Tools
+        + **Nota**: al terminar instalar reiniciar el ordenador.
+9. Commit Video 003:
     + $ git add .
     + $ git commit -m "Instalar herramientas del curso"
     + $ git push -u origin main
@@ -237,20 +241,160 @@
 ## Sección 3: Frontend
 
 ### Creando El Frontend con react
+1. Crear proyecto **frontend** en react:
+    + $ npx create-react-app frontend
+2. Ubicarse en la carpeta del nuevo proyecto **frontend** y levantar un servidor:
+    + $ npm start
+3. Modificar el archivo **frontend\public\index.html** para agregar los CDN de Bootstrap:
+    ```html
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        ≡
+        <title>React App</title>
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        ≡
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+    </html>
+    ≡
+    ```
+    + **CDN Bootstrap**: https://getbootstrap.com
+4. Eliminar los siguientes archivos:
+    + frontend\src\App.css
+    + frontend\src\App.test.js
+    + frontend\src\logo.svg
+    + frontend\src\setupTests.js
+    + frontend\src\reportWebVitals.js
+5. Modificar el archivo **frontend\src\App.js**:
+    ```js
+    import React from 'react';
+    import Formulario from './components/Formulario';
 
-1. Commit Video 008:
+    function App() {
+        return (
+            <div className="App">
+                <Formulario/>
+            </div>
+        );
+    }
+
+    export default App;
+    ```
+6. Modificar el archivo **frontend\src\index.js**:
+    ```js
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import './index.css';
+    import App from './App';
+
+    ReactDOM.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>,
+        document.getElementById('root')
+    );
+    ```
+7. Instalar Axios:
+    + $ npm i axios
+8. Crear componente **frontend\src\components\Formulario.js**:
+    ```js
+    import React, { useState } from 'react'
+    import Axios from 'axios'
+    import Swal from 'sweetalert2'
+
+    export default function Formulario() {
+        // Declaración de variables (estados)
+        const [nombre, setNombre] = useState('')
+        const [apellido, setApellido] = useState('')
+        const [salario, setSalario] = useState('')
+
+        // Conexión con el backend
+        const registrar = async(e) => {
+            e.preventDefault()
+            const NuevoEmpleado = {nombre, apellido, salario}
+            const respuesta = await Axios.post('http://localhost:4000/api', NuevoEmpleado)
+            /* console.log(respuesta) */
+            const mensaje = respuesta.data.mensaje
+            /* alert(mensaje) */
+            Swal.fire({
+                icon: 'success',
+                title: mensaje,
+                /* showConfirmButton: false,
+                timer: 1500 */
+            })
+        }
+
+        return (
+            <div className="container col-md-3 mt-4">
+                <form onSubmit={registrar}>
+                    <div className="mb-3">
+                        <input type="text" className="form-control" required placeholder="Nombre" onChange={e => setNombre(e.target.value)}/>
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control" required placeholder="Apellido" onChange={e => setApellido(e.target.value)} />
+                    </div>
+                    <div className="mb-3">
+                        <input type="text" className="form-control" required placeholder="Salario" onChange={e => setSalario(e.target.value)} />
+                    </div>
+                    <button type="submit" className="btn btn-primary">Guardar</button>
+                </form>   
+            </div>
+        )
+    }
+    ```
+    + **Nota 1**: en React este archivo también su pudo llamar con la extensión **jsx**.
+    + **Nota 2**: para crear la estructura del componente se puede utilizar el atajo de **rfc**.
+9. Modificar controlador **backend\src\controllers\prueba.controllers.js**:
+    ```js
+    const PruebaCtrl={}
+
+    PruebaCtrl.obtener=(req, res) => {
+        res.send('funcionando desde get')
+    }
+
+    PruebaCtrl.crear = async(req, res) => {
+        const {nombre, apellido, salario} = req.body 
+        const NuevoRegistro = new Empleado({
+            nombre,
+            apellido,
+            salario
+        })
+        await NuevoRegistro.save()
+        res.json({
+            mensaje: 'Empleado guardado'
+        })
+    }
+
+    PruebaCtrl.actualizar=(req, res) => {
+        res.send('funcionando desde put')
+    }
+
+    PruebaCtrl.eliminar=(req, res) => {
+        res.send('funcionando desde delete')
+    }
+
+    module.exports=PruebaCtrl
+    ```
+10. Instalar Sweetalert2 en el frontend:
+    + $ npm install sweetalert2
+11. Commit Video 008:
     + $ git add .
     + $ git commit -m "Frontend con react"
     + $ git push -u origin main
 
+### Solucionar error al crear el proyecto de react
+1. Abri una terminal de Windows y crear un proyecto de React:
+    + $ npx create-react-app frontend
+2. dddd
+3. Commit Video 009:
+    + $ git add .
+    + $ git commit -m "Solucionar error al crear el proyecto de react"
+    + $ git push -u origin main
 
     ≡
     ```js
     ```
-
-### Solucionar error al crear el proyecto de react
-
-1. Commit Video 009:
-    + $ git add .
-    + $ git commit -m "Solucionar error al crear el proyecto de react"
-    + $ git push -u origin main
