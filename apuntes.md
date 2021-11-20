@@ -131,17 +131,36 @@
     + $ git commit -m "Configurando Nodemon"
     + $ git push -u origin main
 
-
-
-
-    ≡
-    ```js
-    ```
-
-
 ### Creando la conexión a la base de datos mongodb
+1. Levantar los servicios de MongoDB:
+    + $ mongod
+2. Configura la conexión con la base de datos MongoDB en **backend\src\database.js**:
+    ```js
+    const mongoose=require('mongoose')
 
-1. Commit Video 006:
+    URI=('mongodb://localhost/ensayo')
+
+    mongoose.connect(URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    })
+        .then(db => console.log('base de datos conectada'))
+        .catch(error => console.log(error))
+
+    module.exports=mongoose
+    ```
+3. Importar la conexión con la base de datos en **backend\src\index.js**:
+    ```js
+    ≡
+    const bodyparser=require('body-parser')
+
+    require('./database')
+    ```
+4. Ejecutar:
+    + $ npm run dev
+5. Commit Video 006:
     + $ git add .
     + $ git commit -m "Creando la conexión a la base de datos mongodb"
     + $ git push -u origin main
@@ -152,6 +171,11 @@
     + $ git add .
     + $ git commit -m "Creando controladores y rutas"
     + $ git push -u origin main
+
+
+    ≡
+    ```js
+    ```
 
 ## Sección 3: Frontend
 
